@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A Special Message for You</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600;700&display=swap');
@@ -146,142 +147,141 @@
     </div>
 
     <script>
-        // Extract names from URL (e.g., ?to=Maya&from=Arjun)
-        const params = new URLSearchParams(window.location.search);
-        const to = params.get('to') || 'Beautiful';
-        const from = params.get('from') || 'Your Admirer';
+    // ==========================================
+    // CONFIGURATION (The Brotherhood starts here)
+    // ==========================================
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";    // Replace with your Public Key
+    const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";    // Replace with your Service ID
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";  // Replace with your Template ID
+    // ==========================================
 
-        document.getElementById('to-name').innerText = to;
-        document.getElementById('from-name').innerText = from;
+    // Initialize EmailJS
+    (function() {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    })();
 
-        // Transitions Logic
-        window.addEventListener('load', () => {
-            const fill = document.getElementById('fill');
-            const status = document.getElementById('status-text');
-            
-            setTimeout(() => {
-                fill.style.width = '100%';
-                setTimeout(() => { status.innerText = "Target Located: 100%"; }, 1000);
-            }, 500);
+    // Extract names from URL
+    const params = new URLSearchParams(window.location.search);
+    const to = params.get('to') || 'Beautiful';
+    const from = params.get('from') || 'Your Admirer';
 
-            setTimeout(() => {
-                const loaderCard = document.getElementById('loader-card');
-                const mainCard = document.getElementById('main-card');
-                
-                loaderCard.classList.add('opacity-0', 'scale-90');
-                setTimeout(() => {
-                    loaderCard.classList.add('hidden');
-                    mainCard.classList.remove('hidden');
-                    setTimeout(() => {
-                        mainCard.classList.remove('opacity-0', 'translate-y-10');
-                    }, 50);
-                }, 500);
-            }, 3500);
-        });
+    document.getElementById('to-name').innerText = to;
+    document.getElementById('from-name').innerText = from;
 
-        // Floating Hearts
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = ['❤️', '💖', '✨', '🌸', '💘'][Math.floor(Math.random() * 5)];
-            heart.className = 'floating-heart';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
-            document.getElementById('hearts-bg').appendChild(heart);
-            setTimeout(() => heart.remove(), 4000);
-        }
-        setInterval(createHeart, 300);
+    // Transitions Logic
+    window.addEventListener('load', () => {
+        const fill = document.getElementById('fill');
+        const status = document.getElementById('status-text');
+        
+        setTimeout(() => {
+            fill.style.width = '100%';
+            setTimeout(() => { status.innerText = "Target Located: 100%"; }, 1000);
+        }, 500);
 
-        // Playful No Button Logic
-        const noBtn = document.getElementById('no-btn');
-        let noCount = 0;
-        const noMessages = [
-            "No",
-            "Are you sure?",
-            "Really sure??",
-            "Think again! 🥺",
-            "Last chance!",
-            "Surely not?",
-            "You're breaking my heart!",
-            "I'm gonna cry...",
-            "Don't do this to me!",
-            "Okay, click Yes now."
-        ];
-
-        const moveNoButton = () => {
-            // Shake effect
-            noBtn.classList.add('shake');
-            setTimeout(() => noBtn.classList.remove('shake'), 300);
-
-            // Calculate random position within viewport padding
-            const padding = 20;
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
-            
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-            noBtn.style.zIndex = '100';
-
-            // Change message
-            if (noCount < noMessages.length - 1) {
-                noCount++;
-                noBtn.innerText = noMessages[noCount];
-            }
-            
-            // Make the Yes button bigger as the No button moves
-            const yesBtn = document.getElementById('yes-btn');
-            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-            if (currentSize < 40) {
-                yesBtn.style.fontSize = (currentSize + 2) + 'px';
-                yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).paddingTop) + 2) + 'px ' + (parseFloat(window.getComputedStyle(yesBtn).paddingLeft) + 4) + 'px';
-            }
-        };
-
-        noBtn.addEventListener('mouseover', (e) => {
-            if (window.innerWidth > 768) moveNoButton(); // Only on desktop hover
-        });
-
-        noBtn.addEventListener('click', (e) => {
-            moveNoButton(); // Works for touch and click
-        });
-
-        // Yes Button Success
-        document.getElementById('yes-btn').addEventListener('click', () => {
+        setTimeout(() => {
+            const loaderCard = document.getElementById('loader-card');
             const mainCard = document.getElementById('main-card');
-            const successCard = document.getElementById('success-card');
             
-            mainCard.classList.add('opacity-0', 'scale-90');
+            loaderCard.classList.add('opacity-0', 'scale-90');
             setTimeout(() => {
-                mainCard.classList.add('hidden');
-                successCard.classList.remove('hidden');
+                loaderCard.classList.add('hidden');
+                mainCard.classList.remove('hidden');
                 setTimeout(() => {
-                    successCard.classList.remove('opacity-0', 'translate-y-10');
-                    triggerConfetti();
+                    mainCard.classList.remove('opacity-0', 'translate-y-10');
                 }, 50);
             }, 500);
-        });
+        }, 3500);
+    });
 
-        function triggerConfetti() {
-            for(let i=0; i<100; i++) {
-                setTimeout(() => {
-                    const c = document.createElement('div');
-                    c.innerText = ['🌸', '✨', '❤️', '💖'][Math.floor(Math.random() * 4)];
-                    c.className = 'fixed text-2xl animate-pulse pointer-events-none';
-                    c.style.left = Math.random() * 100 + 'vw';
-                    c.style.top = Math.random() * 100 + 'vh';
-                    c.style.zIndex = '1000';
-                    document.body.appendChild(c);
-                    
-                    const anim = c.animate([
-                        { transform: 'scale(0) rotate(0deg)', opacity: 1 },
-                        { transform: 'scale(2) rotate(360deg)', opacity: 0 }
-                    ], { duration: 1000 + Math.random() * 1000 });
-                    
-                    anim.onfinish = () => c.remove();
-                }, i * 30);
-            }
+    // Floating Hearts
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = ['❤️', '💖', '✨', '🌸', '💘'][Math.floor(Math.random() * 5)];
+        heart.className = 'floating-heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        document.getElementById('hearts-bg').appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+    setInterval(createHeart, 300);
+
+    // Playful No Button Logic
+    const noBtn = document.getElementById('no-btn');
+    let noCount = 0;
+    const noMessages = ["No", "Are you sure?", "Really sure??", "Think again! 🥺", "Last chance!", "Surely not?", "I'm gonna cry...", "Don't do this!", "Okay, click Yes now."];
+
+    const moveNoButton = () => {
+        noBtn.classList.add('shake');
+        setTimeout(() => noBtn.classList.remove('shake'), 300);
+        const padding = 20;
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+        noBtn.style.zIndex = '100';
+        if (noCount < noMessages.length - 1) {
+            noCount++;
+            noBtn.innerText = noMessages[noCount];
         }
-    </script>
+        const yesBtn = document.getElementById('yes-btn');
+        const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+        if (currentSize < 40) {
+            yesBtn.style.fontSize = (currentSize + 2) + 'px';
+            yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).paddingTop) + 2) + 'px ' + (parseFloat(window.getComputedStyle(yesBtn).paddingLeft) + 4) + 'px';
+        }
+    };
+
+    noBtn.addEventListener('mouseover', () => { if (window.innerWidth > 768) moveNoButton(); });
+    noBtn.addEventListener('click', moveNoButton);
+
+    // YES BUTTON LOGIC + EMAIL TRIGGER
+    document.getElementById('yes-btn').addEventListener('click', () => {
+        const mainCard = document.getElementById('main-card');
+        const successCard = document.getElementById('success-card');
+        
+        // 1. Send the Email via EmailJS
+        const templateParams = {
+            from_name: from,
+            to_name: to,
+            message: `${to} just clicked the YES button! 💍`
+        };
+
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+            .then(() => console.log('Email sent successfully!'))
+            .catch((error) => console.error('Email failed:', error));
+
+        // 2. Show Success UI
+        mainCard.classList.add('opacity-0', 'scale-90');
+        setTimeout(() => {
+            mainCard.classList.add('hidden');
+            successCard.classList.remove('hidden');
+            setTimeout(() => {
+                successCard.classList.remove('opacity-0', 'translate-y-10');
+                triggerConfetti();
+            }, 50);
+        }, 500);
+    });
+
+    function triggerConfetti() {
+        for(let i=0; i<100; i++) {
+            setTimeout(() => {
+                const c = document.createElement('div');
+                c.innerText = ['🌸', '✨', '❤️', '💖'][Math.floor(Math.random() * 4)];
+                c.className = 'fixed text-2xl animate-pulse pointer-events-none';
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.top = Math.random() * 100 + 'vh';
+                c.style.zIndex = '1000';
+                document.body.appendChild(c);
+                const anim = c.animate([
+                    { transform: 'scale(0) rotate(0deg)', opacity: 1 },
+                    { transform: 'scale(2) rotate(360deg)', opacity: 0 }
+                ], { duration: 1000 + Math.random() * 1000 });
+                anim.onfinish = () => c.remove();
+            }, i * 30);
+        }
+    }
+</script>
 </body>
 </html>
