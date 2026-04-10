@@ -1,9 +1,5 @@
 # 💖 Lovr: The Interactive Proposal Deployment Tool
 
-<p align="center">
-  <img src="[https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY5ZWZ3ZzR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JnBlPXM/l41JWZ59PzO0z1F1u/giphy.gif](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY5ZWZ3ZzR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JnBlPXM/l41JWZ59PzO0z1F1u/giphy.gif)" width="300" alt="Heart Animation">
-</p>
-
 > **The ultimate Open Source solution for "merging" hearts.** An interactive, responsive, and playful web application designed for developers to propose to their partners.
 
 **Live Demo:** [zelvior.github.io/lovr/](https://zelvior.github.io/lovr/)
