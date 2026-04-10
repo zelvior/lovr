@@ -13,6 +13,7 @@
 ### ✨ Key Features
 
 * **💌 Dynamic Parameter Detection**: Automatically extracts `to` and `from` names from the URL endpoints for instant personalization.
+* **📧 Automated Success Notifications**: Integrated with **EmailJS** to instantly notify the sender via email the moment the "Yes" button is clicked.
 * **🕹️ Interactive "No" Button**: Features a sophisticated avoidance algorithm that makes the button dodge the cursor/finger, while simultaneously scaling the "Yes" button larger with every attempt.
 * **📱 Universal Responsiveness**: Utilizes `100dvh` (Dynamic Viewport Height) to ensure a flawless experience across all mobile and desktop browsers.
 * **🎉 Celebration Engine**: Triggers high-performance confetti and romantic success animations upon a positive response.
@@ -35,10 +36,27 @@ You can personalize the experience without changing a single line of code by usi
 
 ---
 
+## 📧 Email Notification Setup (Action Required)
+
+Since this is an open-source project, you must connect your own **EmailJS** account to receive the "Yes" notifications.
+
+1.  **Sign Up**: Create a free account at [emailjs.com](https://www.emailjs.com/).
+2.  **Create a Service**: Link your email provider (Gmail, Outlook, etc.) to get a **Service ID**.
+3.  **Create a Template**: Design your email and note the **Template ID**. Use `{{to_name}}` and `{{from_name}}` in your template text.
+4.  **Update Config**: Open `index.html` and fill in your details at the top of the `<script>` section:
+    ```javascript
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+    const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+    ```
+
+---
+
 ## 💻 Technical Stack
 
 * **Structure**: HTML5 Semantic Markup
 * **Styling**: Tailwind CSS (JIT CDN)
+* **Email Logic**: EmailJS SDK
 * **Typography**: Google Fonts (Dancing Script & Quicksand)
 * **Logic**: Vanilla JavaScript (ES6+)
 * **Animations**: CSS Keyframes & Web Animations API
